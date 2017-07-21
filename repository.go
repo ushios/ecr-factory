@@ -7,11 +7,11 @@ import (
 
 // CreateRepository create name repository
 func CreateRepository(c ecr.ECR, name string) (*ecr.Repository, error) {
-	req := &ecr.CreateRepositoryInput{
+	param := &ecr.CreateRepositoryInput{
 		RepositoryName: aws.String(name),
 	}
 
-	resp, err := c.CreateRepository(req)
+	resp, err := c.CreateRepository(param)
 	if err != nil {
 		return nil, err
 	}
