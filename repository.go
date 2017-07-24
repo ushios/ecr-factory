@@ -6,7 +6,7 @@ import (
 )
 
 // CreateRepository create name repository
-func CreateRepository(c ecr.ECR, name string) (*ecr.Repository, error) {
+func CreateRepository(c *ecr.ECR, name string) (*ecr.Repository, error) {
 	param := &ecr.CreateRepositoryInput{
 		RepositoryName: aws.String(name),
 	}
