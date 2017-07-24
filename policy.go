@@ -33,7 +33,7 @@ func CreatePullerPolicy(i *iam.IAM, repo *ecr.Repository) (*iam.Policy, error) {
 
 // CreatePusherPolicy create policy
 func CreatePusherPolicy(i *iam.IAM, repo *ecr.Repository) (*iam.Policy, error) {
-	param, err := pulleerParam(repo)
+	param, err := pusherParam(repo)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func CreatePusherPolicy(i *iam.IAM, repo *ecr.Repository) (*iam.Policy, error) {
 }
 
 func pulleerParam(repo *ecr.Repository) (*iam.CreatePolicyInput, error) {
-	p := pusherPolicy(repo)
+	p := pullerPolicy(repo)
 	b, err := p.PolicyScheme()
 	if err != nil {
 		return nil, err

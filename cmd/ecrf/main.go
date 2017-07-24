@@ -19,6 +19,10 @@ var (
 )
 
 func main() {
+
+	flag.Parse()
+	fmt.Printf("id: %s, secret: %s, name: %s\n", *id, *secret, *name)
+
 	cre := credentials.NewStaticCredentials(*id, *secret, "")
 	sess, err := session.NewSession(&aws.Config{
 		Region:      aws.String("ap-northeast-1"),
@@ -34,18 +38,20 @@ func main() {
 		panic(err)
 	}
 
+	fmt.Printf("Created repository(name: %s)\n", *repo.RepositoryName)
+
 	i := iam.New(sess)
 	pull, err := ecrf.CreatePullerPolicy(i, repo)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("Create policy(id:%s, name: %s)", *pull.PolicyId, *pull.PolicyName)
+	fmt.Printf("Created policy(id:%s, name: %s)\n", *pull.PolicyId, *pull.PolicyName)
 
 	push, err := ecrf.CreatePusherPolicy(i, repo)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("Create policy(id:%s, name: %s)", *push.PolicyId, *push.PolicyName)
+	fmt.Printf("Created policy(id:%s, name: %s)\n", *push.PolicyId, *push.PolicyName)
 }
